@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background:url("images/background.jpg");
+            position: relative;
+            overflow-x: hidden;
+            padding: 10px;
+        }
+
+        /* Fancy animated title */
+        .title {
+            font-family: 'Playfair Display',serif;
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            white-space: nowrap;
+            animation: 
+                typewriter 4s steps(40) forwards,
+                colorFade 4s ease-in-out forwards,
+                scalePulse 4s ease-in-out forwards;
+            max-width: 90%;
+            
+        }
+        .title span{
+            color: #b70b58;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 900;
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes colorFade {
+            0% {
+                color: #ff9500;
+            }
+            50% {
+                color: #2196F3;
+            }
+            100% {
+                color: white;
+            }
+        }
+
+        @keyframes scalePulse {
+            0% {
+                transform: scale(0.9);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Animated gears background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .gear {
+            position: absolute;
+            background: url("images/Gears.jpg") no-repeat center center;
+            background-size: contain;
+            animation: rotate 20s linear infinite;
+            background-color: #db3005;
+        }
+
+        .gear1 {
+            width: 120px;
+            height: 120px;
+            top: 5%;
+            left: 5%;
+            border-radius: 60px;
+        }
+
+        .gear2 {
+            width: 100px;
+            height: 100px;
+            top: 65%;
+            left: 75%;
+            border-radius: 50px;
+            animation-duration: 15s;
+            animation-direction: reverse;
+        }
+
+        .gear3 {
+            width: 150px;
+            height: 160px;
+            top: 25%;
+            left: 65%;
+            border-radius: 50px;
+            animation-duration: 25s;
+        }
+
+
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .calculator {
+            background: rgba(91, 91, 91, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 380px;
+            z-index: 1;
+        }
+
+        .display {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.8rem;
+            text-align: right;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            background: #de0579;
+            border-radius: 10px;
+            font-size: 1.7rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #d0d0d0;
+        }
+
+        .operator {
+            background: #ff9500;
+            color: white;
+            font-weight: 900;
+        }
+
+        .operator:hover {
+            background: #7f00e6;
+        }
+
+        .function {
+            background: #049c32;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .function:hover {
+            background: #909090;
+        }
+
+        .equals {
+            background: #2196F3;
+            color: white;
+        }
+
+        .equals:hover {
+            background: #1e87db;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+                max-width: 95%;
+            }
+
+            .calculator {
+                max-width: 320px;
+                padding: 12px;
+            }
+
+            .display {
+                height: 45px;
+                font-size: 1.5rem;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 1.2rem;
+            }
+
+            .gear1 {
+                width: 100px;
+                height: 100px;
+                top: 3%;
+                left: 3%;
+            }
+
+            .gear2 {
+                width: 60px;
+                height: 60px;
+                top: 70%;
+                left: 80%;
+            }
+
+            .gear3 {
+                width: 80px;
+                height: 80px;
+                top: 20%;
+                left: 70%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .title {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .calculator {
+                max-width: 280px;
+                padding: 10px;
+            }
+
+            .display {
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            .gear1 {
+                width: 80px;
+                height: 80px;
+                top: 2%;
+                left: 2%;
+            }
+
+            .gear2 {
+                width: 50px;
+                height: 50px;
+                top: 75%;
+                left: 85%;
+            }
+
+            .gear3 {
+                width: 60px;
+                height: 60px;
+                top: 15%;
+                left: 75%;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .title {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+
+            .calculator {
+                max-width: 260px;
+                padding: 8px;
+            }
+
+            .display {
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .gear1 {
+                width: 60px;
+                height: 60px;
+            }
+
+            .gear2 {
+                width: 40px;
+                height: 40px;
+            }
+
+            .gear3 {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Hey<span> welcome👋</span>  <br> To Allamano's Smart Calculator🤗🤗<br>Have a great day!</h1>
+    <div class="background">
+        <div class="gear gear1"></div>
+        <div class="gear gear2"></div>
+        <div class="gear gear3"></div>
+    </div>
+    <div class="calculator">
+        <input type="text" class="display" id="display" readonly>
+        <div class="buttons">
+            <button class="function" onclick="clearDisplay()">Clear</button>
+            <button class="function" onclick="deleteLast()">Del</button>
+            <button class="function" onclick="toggleNegative()">(-)</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('*')">*</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendDecimal()">.</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let num1 = 0;
+        let num2 = 0;
+        let operator = '';
+        let operatorPressed = false;
+
+        function appendNumber(number) {
+            if (operatorPressed) {
+                display.value += ' ' + number;
+                operatorPressed = false;
+            } else {
+                display.value += number;
+            }
+        }
+
+        function appendDecimal() {
+            let currentText = display.value;
+            if (currentText && !currentText.split(' ').pop().includes('.')) {
+                display.value += '.';
+            }
+        }
+
+        function appendOperator(op) {
+            if (display.value && !operatorPressed) {
+                num1 = parseLastNumber(display.value);
+                operator = op;
+                display.value += ' ' + op;
+                operatorPressed = true;
+            }
+        }
+
+        function calculate() {
+            if (display.value && !operatorPressed) {
+                let parts = display.value.split(' ');
+                if (parts.length >= 3) {
+                    try {
+                        num2 = parseFloat(parts[parts.length - 1]);
+                        let result;
+                        switch (operator) {
+                            case '+':
+                                result = num1 + num2;
+                                break;
+                            case '-':
+                                result = num1 - num2;
+                                break;
+                            case '*':
+                                result = num1 * num2;
+                                break;
+                            case '/':
+                                if (num2 !== 0) {
+                                    result = num1 / num2;
+                                } else {
+                                    display.value = 'Error';
+                                    return;
+                                }
+                                break;
+                        }
+                        display.value = result;
+                        num1 = result;
+                        operatorPressed = false;
+                    } catch (e) {
+                        display.value = 'Error';
+                    }
+                }
+            }
+        }
+
+        function clearDisplay() {
+            display.value = '';
+            num1 = 0;
+            num2 = 0;
+            operator = '';
+            operatorPressed = false;
+        }
+
+        function deleteLast() {
+            let currentText = display.value;
+            if (currentText) {
+                display.value = currentText.slice(0, -1);
+                operatorPressed = currentText.endsWith(' ' + operator);
+            }
+        }
+
+        function toggleNegative() {
+            let currentText = display.value;
+            if (currentText) {
+                try {
+                    let parts = currentText.split(' ');
+                    let lastNumber = parts[parts.length - 1];
+                    if (lastNumber) {
+                        let temp = parseFloat(lastNumber) * -1;
+                        parts[parts.length - 1] = temp.toString();
+                        display.value = parts.join(' ');
+                    }
+                } catch (e) {
+                    // Ignore invalid number
+                }
+            }
+        }
+
+        function parseLastNumber(text) {
+            let parts = text.split(' ');
+            if (parts.length > 0) {
+                try {
+                    return parseFloat(parts[parts.length - 1]);
+                } catch (e) {
+                    return 0;
+                }
+            }
+            return 0;
+        }
+    </script>
+</body>
+</html>
